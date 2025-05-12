@@ -1,0 +1,105 @@
+/* cameraOverlay.css (Увеличен размер на камерата) */
+
+/* --- Основни стилове за контейнера на целия компонент --- */
+.camera-capture-container {
+    width: 100%;
+    max-width: 560px;
+    /* КОРЕКЦИЯ: Увеличена максимална ширина (напр. от 480px на 560px) */
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* --- Контейнер за видеото и overlay-а --- */
+.camera-feed-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #222;
+    min-height: 300px;
+    /* КОРЕКЦИЯ: Увеличена минимална височина (напр. от 200px на 300px) */
+    /* Ако искате фиксирано съотношение, разкоментирайте и настройте padding-top: */
+    /* padding-top: 75%; */
+    /* За 4:3 съотношение. Тогава min-height може да не е нужен или да е по-малък. */
+    /* height: 0; */
+    /* Необходимо, ако се използва padding-top за aspect ratio */
+}
+
+/* --- Стил за видео елемента --- */
+.camera-feed-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.camera-feed-wrapper video.mirrored {
+    transform: scaleX(-1);
+}
+
+/* --- Стил за Overlay обвивката --- */
+.camera-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* --- Стил за самата рамка (overlay shape) --- */
+.overlay-shape {
+    border: 4px solid white;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
+    position: relative;
+    transition: border-color 0.3s ease;
+}
+
+/* Размери за различните форми на overlay */
+.overlay-shape.shape-rectangle {
+    width: 80%;
+    height: 60%;
+    border-radius: 8px;
+}
+
+.overlay-shape.shape-oval {
+    width: 60%;
+    height: 85%;
+    border-radius: 50%;
+}
+
+/* --- Стил за бутона --- */
+.capture-button {
+    padding: 12px 30px;
+    font-size: 1.15rem;
+    border-radius: 8px;
+}
+
+/* --- Адаптивност --- */
+@media (max-width: 576px) {
+
+    /* На малки екрани .camera-capture-container ще заеме 100% от наличната ширина до новия max-width */
+    .overlay-shape.shape-rectangle {
+        width: 85%;
+        /* Може да се наложи леко коригиране спрямо новия размер */
+        height: 58%;
+    }
+
+    .overlay-shape.shape-oval {
+        width: 70%;
+        height: 80%;
+    }
+
+    .camera-capture-container {
+        padding: 5px;
+    }
+}
